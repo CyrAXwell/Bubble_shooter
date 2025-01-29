@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -8,13 +7,14 @@ using UnityEngine.InputSystem;
 
 public class BubbleShooter : MonoBehaviour
 {
-    [SerializeField] private BubbleSpawner bubbleSpawner;
-    [SerializeField] private TrajectoryLine trajectoryLine;
-    [SerializeField] private GameObject collPoint;
-    [SerializeField] private GameObject rayPoint;
-    [SerializeField] private GameField gameField;
+    private const string TOP_WALL_NAME = "Top Wall";
+    public const string WALL_GAME_OBJECT_TAG = "Wall";
 
-    private Camera _cam;
+    [SerializeField] private BubbleSpawner _bubbleSpawner;
+    [SerializeField] private TrajectoryLine _trajectoryLine;
+    [SerializeField] private GameField _gameField;
+
+    private Camera _camera;
     private Bubble _bubble;
     private Vector2 _direction;
     private bool _canShoot;
@@ -25,14 +25,14 @@ public class BubbleShooter : MonoBehaviour
 
     private void Start()
     {
-        _cam = Camera.main;
-        _audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        _camera = Camera.main;
+        _audioManager = GameObject.FindGameObjectWithTag(AudioManager.AUDIO_MANAGER_GAME_OBJECT_TAG).GetComponent<AudioManager>();
     }    
 
     private void Update()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos = _cam.ScreenToWorldPoint(mousePos);
+        mousePos = _camera.ScreenToWorldPoint(mousePos);
         _direction = mousePos - transform.position;
 
         
@@ -42,13 +42,13 @@ public class BubbleShooter : MonoBehaviour
         if (mousePos.y - transform.position.y < 0.5)
         {
             _isCursorInField = false;
-            trajectoryLine.StopDisplay();
+            _trajectoryLine.StopDisplay();
         }
         else
         {
             _isCursorInField = true;
             if (_canShoot)
-                trajectoryLine.StartDisplay();
+                _trajectoryLine.StartDisplay();
         }
     }
 
@@ -60,7 +60,7 @@ public class BubbleShooter : MonoBehaviour
             {
                 _audioManager.PlaySFX(_audioManager.ShootSound);
                 _canShoot = false;
-                trajectoryLine.StopDisplay();
+                _trajectoryLine.StopDisplay();
                 Sequence sequence = DOTween.Sequence();
                 RayCastShoot(transform.position, _direction, sequence);
             }
@@ -70,18 +70,16 @@ public class BubbleShooter : MonoBehaviour
     private void PhysicsShoot()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos = _cam.ScreenToWorldPoint(mousePos);
+        mousePos = _camera.ScreenToWorldPoint(mousePos);
 
         if (_canShoot && _isCursorInField)
         {
             _canShoot = false;
-            trajectoryLine.StopDisplay();
+            _trajectoryLine.StopDisplay();
 
             _direction.Normalize();
 
             _bubble.GetComponent<MovingBubble>().StartMove(_direction);
-            //StartCoroutine(CreatBubbleWithDelay());
-
         }
     }
 
@@ -93,8 +91,8 @@ public class BubbleShooter : MonoBehaviour
         {
             var results = new List<RaycastHit2D>(rayHit);
 
-            var bubbleHit = results.Where(r => r.collider.gameObject.CompareTag("Bubble")).ToArray();
-            var wallHit = results.Where(r => r.collider.gameObject.CompareTag("Wall")).ToArray();
+            var bubbleHit = results.Where(r => r.collider.gameObject.CompareTag(Bubble.BUBBLE_GAME_OBJECT_TAG)).ToArray();
+            var wallHit = results.Where(r => r.collider.gameObject.CompareTag(WALL_GAME_OBJECT_TAG)).ToArray();
 
             bool isWallHit = false;
 
@@ -116,7 +114,7 @@ public class BubbleShooter : MonoBehaviour
             
                 if (currentCell == null)
                 {
-                    if (bubbleHit[0].collider.name != "Top Wall")
+                    if (bubbleHit[0].collider.name != TOP_WALL_NAME)
                     {
                         currentCell = bubbleHit[0].collider.gameObject.GetComponent<Bubble>().GetNearCell();
                         if (currentCell.Type != BubbleType.Empty)
@@ -124,7 +122,7 @@ public class BubbleShooter : MonoBehaviour
                     }
                     else
                     {
-                        currentCell = gameField.GetEmptyCell(bubbleHit[0].point.x);
+                        currentCell = _gameField.GetEmptyCell(bubbleHit[0].point.x);
                     }
                     
                 }
@@ -172,7 +170,7 @@ public class BubbleShooter : MonoBehaviour
         var hit = results.Where(r => r.gameObject.layer == 5).Where(r => r.gameObject.CompareTag("Cell")).ToArray();
         if(hit.Count() > 0)
         {
-            if (hit[0].gameObject.CompareTag("Cell"))
+            if (hit[0].gameObject.CompareTag(Cell.CELL_GAME_OBJECT_TAG))
             {
                 return hit[0].gameObject.GetComponent<Cell>();
             }
@@ -181,22 +179,16 @@ public class BubbleShooter : MonoBehaviour
         return null;
     }
 
-    private IEnumerator CreatBubbleWithDelay()
-    {
-        yield return new WaitForSeconds(0.8f);
-        _bubble = bubbleSpawner.CreateNewBubble(true);
-    }
-
     public void SetCanShoot()
     {
         _canShoot = true;
-        trajectoryLine.StartDisplay();
+        _trajectoryLine.StartDisplay();
     }
 
     public void StopShoot()
     {
         _canShoot = false;
-        trajectoryLine.StopDisplay();
+        _trajectoryLine.StopDisplay();
     }
 
     public void SetBubble(Bubble bubble)

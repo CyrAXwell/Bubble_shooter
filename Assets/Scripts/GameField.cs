@@ -2,25 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameField : MonoBehaviour
 {
-    [SerializeField] private int width;
-    [SerializeField] private int hieght;
-    [SerializeField] private int maxHieght;
-    [SerializeField] private int ShootAmountToShiftDown;
-    [SerializeField] private Cell cellPrefab;
-    [SerializeField] private Bubble bubblePrefab;
-    [SerializeField] private RectTransform leftWall;
-    [SerializeField] private RectTransform rightWall;
-    [SerializeField] private RectTransform topWall;
-    [SerializeField] private BubbleSpawner spawner;
-    [SerializeField] private RectTransform background;
-    [SerializeField] private RectTransform spawnerPanel;
-    [SerializeField] private RectTransform borderLine;
-    [SerializeField] private RectTransform scoreDisplay;
-    [SerializeField] private UIManager uIManager;
+    [SerializeField] private int _width = 12;
+    [SerializeField] private int _hieght = 5;
+    [SerializeField] private int _maxHieght = 13;
+    [SerializeField] private int _shootAmountToShiftDown = 5;
+    [SerializeField] private Cell _cellPrefab;
+    [SerializeField] private Bubble _bubblePrefab;
+    [SerializeField] private RectTransform _leftWall;
+    [SerializeField] private RectTransform _rightWall;
+    [SerializeField] private RectTransform _topWall;
+    [SerializeField] private BubbleSpawner _spawner;
+    [SerializeField] private RectTransform _background;
+    [SerializeField] private RectTransform _spawnerPanel;
+    [SerializeField] private RectTransform _borderLine;
+    [SerializeField] private RectTransform _scoreDisplay;
+    [SerializeField] private UIManager _uIManager;
 
     private List<List<Cell>> _cells = new List<List<Cell>>();
     private RectTransform _rt;
@@ -43,54 +42,56 @@ public class GameField : MonoBehaviour
         _rt = GetComponent<RectTransform>();
         _wave = 0;
         CreateField();
-        spawner.Initialize();
-        _audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        _spawner.Initialize();
+        _audioManager = GameObject.FindGameObjectWithTag(AudioManager.AUDIO_MANAGER_GAME_OBJECT_TAG).GetComponent<AudioManager>();
     }
 
     private void CreateField()
     {
-        _vertivalSpacing = Mathf.Sqrt(3) * cellPrefab.Size / 2;
-        _fieldWidth = width * cellPrefab.Size;
-        _fieldHieght = hieght * _vertivalSpacing + cellPrefab.Size - _vertivalSpacing;
-        _maxFieldHieght = maxHieght * _vertivalSpacing + cellPrefab.Size - _vertivalSpacing;
+        float referenceScreenHieght = 1080;
 
-        leftWall.anchoredPosition = new Vector2(- _fieldWidth / 2, 0f);
-        rightWall.anchoredPosition = new Vector2(_fieldWidth / 2, 0f);
-        topWall.anchoredPosition = new Vector2(0f, _rt.anchoredPosition.y);
-        borderLine.anchoredPosition = new Vector2(0f, _rt.anchoredPosition.y - _maxFieldHieght + cellPrefab.Size);
-        spawnerPanel.sizeDelta = new Vector2(_fieldWidth, 1080 + borderLine.anchoredPosition.y);
+        _vertivalSpacing = Mathf.Sqrt(3) * _cellPrefab.Size / 2;
+        _fieldWidth = _width * _cellPrefab.Size;
+        _fieldHieght = _hieght * _vertivalSpacing + _cellPrefab.Size - _vertivalSpacing;
+        _maxFieldHieght = _maxHieght * _vertivalSpacing + _cellPrefab.Size - _vertivalSpacing;
 
-        scoreDisplay.sizeDelta = new Vector2(_fieldWidth, 100);
-        borderLine.sizeDelta = new Vector2(_fieldWidth, 10);
+        _leftWall.anchoredPosition = new Vector2(- _fieldWidth / 2, 0f);
+        _rightWall.anchoredPosition = new Vector2(_fieldWidth / 2, 0f);
+        _topWall.anchoredPosition = new Vector2(0f, _rt.anchoredPosition.y);
+        _borderLine.anchoredPosition = new Vector2(0f, _rt.anchoredPosition.y - _maxFieldHieght + _cellPrefab.Size);
+        _spawnerPanel.sizeDelta = new Vector2(_fieldWidth, referenceScreenHieght + _borderLine.anchoredPosition.y);
+
+        _scoreDisplay.sizeDelta = new Vector2(_fieldWidth, 100);
+        _borderLine.sizeDelta = new Vector2(_fieldWidth, 10);
         _rt.sizeDelta = new Vector2(_fieldWidth, _fieldHieght);
-        background.sizeDelta = new Vector2(_fieldWidth, 1080);
+        _background.sizeDelta = new Vector2(_fieldWidth, referenceScreenHieght);
 
         FillField();
     }
 
     private void FillField()
     {
-        _startX = - (_fieldWidth / 2) + (cellPrefab.Size / 2);
-        _startY = - (cellPrefab.Size / 2);
+        _startX = - (_fieldWidth / 2) + (_cellPrefab.Size / 2);
+        _startY = - (_cellPrefab.Size / 2);
 
-        for (int i = 0; i < maxHieght; i++)
+        for (int i = 0; i < _maxHieght; i++)
         {
             _cells.Add(new List<Cell>());
 
-            float offsetX = (i + _wave) % 2 == 0 ? 0 : cellPrefab.Size / 2;
-            int lineWidth = (i + _wave) % 2 == 0 ? width : width - 1;
+            float offsetX = (i + _wave) % 2 == 0 ? 0 : _cellPrefab.Size / 2;
+            int lineWidth = (i + _wave) % 2 == 0 ? _width : _width - 1;
 
             for (int j = 0; j < lineWidth; j++)
             {
-                Cell cell = Instantiate(cellPrefab, transform, false);
-                cell.transform.localPosition = new Vector2(_startX + offsetX + j * cellPrefab.Size, _startY - i * _vertivalSpacing);
+                Cell cell = Instantiate(_cellPrefab, transform, false);
+                cell.transform.localPosition = new Vector2(_startX + offsetX + j * _cellPrefab.Size, _startY - i * _vertivalSpacing);
 
-                if (i < hieght)
+                if (i < _hieght)
                     CreateRandomBubble(cell);
                 else
                     CreateEmptyCell(cell);
 
-                cell.Initialize(this, j, i, width > lineWidth);
+                cell.Initialize(this, j, i, _width > lineWidth);
                 _cells[i].Add(cell);
             }
         }
@@ -99,7 +100,7 @@ public class GameField : MonoBehaviour
 
     public void CreateRandomBubble(Cell cell)
     {
-        Bubble bubble = Instantiate(bubblePrefab, cell.transform, false);
+        Bubble bubble = Instantiate(_bubblePrefab, cell.transform, false);
         BubbleType type = (BubbleType) UnityEngine.Random.Range(1, 6);
         bubble.SetSprite(type, cell);
         cell.SetBubbleType(type, bubble);
@@ -107,7 +108,7 @@ public class GameField : MonoBehaviour
 
     public void CreateBubble(Cell cell, BubbleType type)
     {
-        Bubble bubble = Instantiate(bubblePrefab, cell.transform, false);
+        Bubble bubble = Instantiate(_bubblePrefab, cell.transform, false);
         bubble.SetSprite(type, cell);
 
         cell.SetBubbleType(type, bubble);
@@ -159,7 +160,7 @@ public class GameField : MonoBehaviour
     private IEnumerator StartSpawnNewBubble(float delay, bool canShoot)
     {
         yield return new WaitForSeconds(delay);
-        spawner.SpawnBubble(canShoot);
+        _spawner.SpawnBubble(canShoot);
     }
 
     public void CheckHit(Cell cell)
@@ -184,13 +185,13 @@ public class GameField : MonoBehaviour
         }
 
         _shootCounter ++;
-        if (_shootCounter == ShootAmountToShiftDown)
+        if (_shootCounter == _shootAmountToShiftDown)
         {
             _shiftCounter ++;
             if (_shiftCounter == 5)
-                ShootAmountToShiftDown --;
+                _shootAmountToShiftDown --;
             else if (_shiftCounter == 10)
-                ShootAmountToShiftDown --;
+                _shootAmountToShiftDown --;
 
             _shootCounter = 0;
             ShiftDown();
@@ -228,29 +229,27 @@ public class GameField : MonoBehaviour
         return bubbles;
     }
 
-    
-
     private void ShiftDown()
     {
         _wave ++;
         List<List<Cell>> tempCells = new List<List<Cell>>();
 
-        for (int i = 0; i < maxHieght; i++)
+        for (int i = 0; i < _maxHieght; i++)
         {
             if (i == 0)
                 tempCells.Add(new List<Cell>());
             else
                 tempCells.Add(_cells[i - 1]);
                 
-            float offsetX = (i + _wave) % 2 == 0 ? 0 : cellPrefab.Size / 2;
-            int lineWidth = (i + _wave) % 2 == 0 ? width : width - 1;
+            float offsetX = (i + _wave) % 2 == 0 ? 0 : _cellPrefab.Size / 2;
+            int lineWidth = (i + _wave) % 2 == 0 ? _width : _width - 1;
 
             for (int j = 0; j < lineWidth; j++)
             {
                 Cell cell;
                 if (i == 0)
                 {
-                    cell = Instantiate(cellPrefab, transform, false);
+                    cell = Instantiate(_cellPrefab, transform, false);
                     CreateRandomBubble(cell);
                     tempCells[i].Add(cell);
                 }
@@ -259,19 +258,19 @@ public class GameField : MonoBehaviour
                     cell = tempCells[i][j];
                 }
 
-                if(i == maxHieght)
+                if(i == _maxHieght)
                 {
                     Destroy(cell.gameObject);
                 }
                 else
                 {
-                    cell.transform.localPosition = new Vector2(_startX + offsetX + j * cellPrefab.Size,_vertivalSpacing + _startY - i * _vertivalSpacing);
-                    cell.transform.DOLocalMove(new Vector2(_startX + offsetX + j * cellPrefab.Size, _startY - i * _vertivalSpacing), 0.3f).SetLink(gameObject);
-                    cell.Initialize(this, j, i, width > lineWidth);
+                    cell.transform.localPosition = new Vector2(_startX + offsetX + j * _cellPrefab.Size,_vertivalSpacing + _startY - i * _vertivalSpacing);
+                    cell.transform.DOLocalMove(new Vector2(_startX + offsetX + j * _cellPrefab.Size, _startY - i * _vertivalSpacing), 0.3f).SetLink(gameObject);
+                    cell.Initialize(this, j, i, _width > lineWidth);
                 }     
             }
         }
-        foreach (var cell in _cells[maxHieght - 1])
+        foreach (var cell in _cells[_maxHieght - 1])
             Destroy(cell.gameObject);
         
         _cells = new List<List<Cell>>(tempCells);
@@ -281,17 +280,15 @@ public class GameField : MonoBehaviour
 
     private void CheckLevelBoundary()
     {
-        foreach (var cell in _cells[maxHieght - 1])
+        foreach (var cell in _cells[_maxHieght - 1])
             if (cell.Type != BubbleType.Empty)
             {
                 StartSpawnNewBubble(_shootDelay, false);
-                uIManager.OpenPanel(uIManager.LosePanel);
+                _uIManager.OpenPanel(_uIManager.LosePanel);
                 return;
             }
         
-        StartCoroutine(StartSpawnNewBubble(_shootDelay, true));
-                
-         
+        StartCoroutine(StartSpawnNewBubble(_shootDelay, true)); 
     }
 
     private void CheckNeighbour(Cell cell, List<Cell> bubblesPcak, bool isHit)
@@ -383,7 +380,4 @@ public class GameField : MonoBehaviour
         foreach (var cell in bubblesPcak)
             cell.GetFromPack();
     }
-    
-
-    
 }

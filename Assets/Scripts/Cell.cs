@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] private float size = 80f;
+    public const string CELL_GAME_OBJECT_TAG = "Cell";
+
+    [SerializeField] private float _size = 70f;
 
     private int _xPos;
     private int _yPos;
@@ -13,12 +15,12 @@ public class Cell : MonoBehaviour
     private Bubble _bubble;
     private bool _isWideLine;
     
-    public float Size => size;
+    public float Size => _size;
     public int XPos => _xPos;
     public int YPos => _yPos;
     public BubbleType Type => _type;
-    public bool IsInPack;
     public bool IsWideLine => _isWideLine;
+    public bool IsInPack { get; private set; }
     
 
     public void Initialize(GameField gameField, int xPos, int yPos, bool line)

@@ -7,12 +7,12 @@ public class UIManager : MonoBehaviour
 {
     [DllImport("__Internal")]
     private static extern void ShowFullscreenAdv();
-    
-    [SerializeField] private CanvasGroup losePanel;
-    [SerializeField] private YandexSDK yandexSDK;
-    
 
-    public CanvasGroup LosePanel => losePanel;
+    private const bool Y_SDK_IS_ENABLED = YandexSDK.Y_SDK_IS_ENABLED;
+    
+    [SerializeField] private CanvasGroup _losePanel;
+    
+    public CanvasGroup LosePanel => _losePanel;
 
     public void OpenPanel(CanvasGroup panel)
     {
@@ -28,7 +28,9 @@ public class UIManager : MonoBehaviour
 
     public void ResetGame()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR && Y_SDK_IS_ENABLED
         ShowFullscreenAdv();
+#endif
         SceneManager.LoadScene(0);
     }
 }

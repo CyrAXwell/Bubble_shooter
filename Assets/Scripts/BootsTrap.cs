@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class BootsTrap : MonoBehaviour
 {
-    [SerializeField] private ScoreView scoreView;
-    [SerializeField] private GameField gameField;
-    [SerializeField] private BubbleSpawner bubbleSpawner;
+    [SerializeField] private ScoreView _scoreView;
+    [SerializeField] private GameField _gameField;
+    [SerializeField] private BubbleSpawner _bubbleSpawner;
+    [SerializeField] private YandexSDK _yandexSDK;
 
     private PlayerData _playerData;
 
@@ -22,13 +23,12 @@ public class BootsTrap : MonoBehaviour
 
     private void GameFieldInit()
     {
-        gameField.Initialize(_playerData);
+        _gameField.Initialize(_playerData);
     }
 
     private void ScoreViewInit()
     {
-        scoreView.Initialize(_playerData);
+        _yandexSDK.Initialize(_playerData);
+        _scoreView.Initialize(_playerData);
     }
-
-
 }

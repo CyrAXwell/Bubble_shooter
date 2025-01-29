@@ -4,51 +4,42 @@ using UnityEngine;
 
 public class YandexSDK : MonoBehaviour
 {
+    public const bool Y_SDK_IS_ENABLED = false;
+
     [DllImport("__Internal")]
     private static extern string GetLang();
 
-    [SerializeField] private ScoreView scoreView;
-    [SerializeField] private TMP_Text loseText;
+    [SerializeField] private ScoreView _scoreView;
+    [SerializeField] private TMP_Text _loseText;
 
-    public static YandexSDK instance;
+    private PlayerData _playerData;
 
-    private void Awake()
+    public void Initialize(PlayerData playerData)
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            SetLang();
-        } 
+        _playerData = playerData;
+        SetLang();
     }
-
-    // private void Start()
-    // {
-    //     SetLang("en");
-    // }
 
     public void SetLang()
     {
-        var lang = GetLang();
-        
-        //Debug.Log("setlang");
+        string lang = _playerData.GetLang();
+#if UNITY_WEBGL && !UNITY_EDITOR && Y_SDK_IS_ENABLED
+        lang = GetLang();
+        _playerData.ChangeLang(lang);
         scoreView.Updatelang(lang);
+#endif
+        
         switch (lang)
         {
-            case "ru":
-                loseText.text = "Поражение";
+            case PlayerData.RU_LANG:
+                _loseText.text = "Поражение";
                 break;
-            case "en":
-                loseText.text = "Game Over";
+            case PlayerData.EN_LANG:
+                _loseText.text = "Game Over";
                 break;
             default:
-                loseText.text = "Game Over";
+                _loseText.text = "Game Over";
                 break;
         }
-        Debug.Log("setlang");
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class MovingBubble : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float _speed = 600;
 
     private RectTransform _rt;
-    private Rigidbody2D _rb;
+
     private bool _canMove;
     private bool _isPlacement;
     private Vector2 _direction;
@@ -18,13 +18,11 @@ public class MovingBubble : MonoBehaviour
         _rt = GetComponent<RectTransform>();
     }
 
-
-
     private void Update()
     {
         if (_canMove)
         {
-            _rt.anchoredPosition = _rt.anchoredPosition + _direction * speed * Time.deltaTime;
+            _rt.anchoredPosition = _rt.anchoredPosition + _direction * _speed * Time.deltaTime;
         }
     }
 
@@ -36,12 +34,12 @@ public class MovingBubble : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Wall"))
+        if (other.collider.CompareTag(BubbleShooter.WALL_GAME_OBJECT_TAG))
         {
             _direction.x *= -1;
         }
 
-        if (other.collider.CompareTag("Bubble") && !_isPlacement)
+        if (other.collider.CompareTag(Bubble.BUBBLE_GAME_OBJECT_TAG) && !_isPlacement)
         {
             _isPlacement = true;
             Destroy(gameObject);
@@ -55,7 +53,6 @@ public class MovingBubble : MonoBehaviour
             }
 
             currentCell.OnHit(gameObject.GetComponent<Bubble>().Type);
-            
         }
     }
 
@@ -68,7 +65,6 @@ public class MovingBubble : MonoBehaviour
         float deltaY = Screen.height / 2;
         pos.x += deltaX;
         pos.y += deltaY;
-
         
         eventData.position = pos;
 
@@ -76,10 +72,10 @@ public class MovingBubble : MonoBehaviour
         EventSystem.current.RaycastAll(eventData, results);
 
 
-        var hit = results.Where(r => r.gameObject.layer == 5).Where(r => r.gameObject.CompareTag("Cell")).ToArray();
+        var hit = results.Where(r => r.gameObject.layer == 5).Where(r => r.gameObject.CompareTag(Cell.CELL_GAME_OBJECT_TAG)).ToArray();
         if(hit.Count() > 0)
         {
-            if (hit[0].gameObject.CompareTag("Cell"))
+            if (hit[0].gameObject.CompareTag(Cell.CELL_GAME_OBJECT_TAG))
             {
                 return hit[0].gameObject.GetComponent<Cell>();
             }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1eb4feeb2a9b2e46a7d8da012d03194, type: 3}
   m_Name: BubbleSprite
   m_EditorClassIdentifier: 
-  redBubble: {fileID: 809855726, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
-  blueBubble: {fileID: 761746402, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
-  greenBubble: {fileID: 1427587923, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
-  yelowBubble: {fileID: -516463440, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
-  purpleBubble: {fileID: 786893544, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
+  _redBubble: {fileID: 809855726, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
+  _blueBubble: {fileID: 761746402, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
+  _greenBubble: {fileID: 1427587923, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
+  _yelowBubble: {fileID: -516463440, guid: 61819db59fa398c4aacc76377d64e045, type: 3}
+  _purpleBubble: {fileID: 786893544, guid: 61819db59fa398c4aacc76377d64e045, type: 3}

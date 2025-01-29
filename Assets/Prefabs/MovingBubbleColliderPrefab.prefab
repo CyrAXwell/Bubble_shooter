@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2798fa4e21d1a94a9097ff94afcf008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleSprite: {fileID: 11400000, guid: b904cb45246f57a499dbac0a6e7f6e29, type: 2}
-  image: {fileID: 7644681424027294949}
+  _bubbleSprite: {fileID: 11400000, guid: b904cb45246f57a499dbac0a6e7f6e29, type: 2}
+  _image: {fileID: 7644681424027294949}
 --- !u!50 &2665845588650934831
 Rigidbody2D:
   serializedVersion: 4

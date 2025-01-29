@@ -3,29 +3,29 @@ using UnityEngine;
 
 public class BubblesStock : MonoBehaviour
 {
-    [SerializeField] private Transform rotateIcon;
-    [SerializeField] private float roateSpeed;
-    [SerializeField] private Bubble stockBubble;
-    [SerializeField] private BubbleShooter bubbleShooter;
+    [SerializeField] private Transform _rotateIcon;
+    [SerializeField] private float _roateSpeed = 45;
+    [SerializeField] private Bubble _stockBubble;
+    [SerializeField] private BubbleShooter _bubbleShooter;
 
     private void Update()
     {
-        rotateIcon.Rotate(new Vector3(0f, 0f, roateSpeed) * Time.deltaTime);
+        _rotateIcon.Rotate(new Vector3(0f, 0f, _roateSpeed) * Time.deltaTime);
     }
 
     public void SetBubble()
     {   
-        stockBubble.SetSprite((BubbleType)Random.Range(1, 6), null);
+        _stockBubble.SetSprite((BubbleType)Random.Range(1, 6), null);
     }
 
     public void OnSwapButton()
     {
-        if (bubbleShooter.CanShoot)
+        if (_bubbleShooter.CanShoot)
         {
-            stockBubble.SetSprite(bubbleShooter.Swap(stockBubble.Type), null);
-            stockBubble.gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
-            stockBubble.gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1f), 0.2f);
-            stockBubble.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f).SetDelay(0.2f);
+            _stockBubble.SetSprite(_bubbleShooter.Swap(_stockBubble.Type), null);
+            _stockBubble.gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
+            _stockBubble.gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1f), 0.2f);
+            _stockBubble.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f).SetDelay(0.2f);
         }
     }
 

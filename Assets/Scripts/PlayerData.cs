@@ -6,14 +6,21 @@ public class PlayerData
 {
     [DllImport("__Internal")]
     private static extern void UpdateLeaderboardScore(int value);
+
+    public const string RU_LANG = "ru";
+    public const string EN_LANG = "en";
+
+    private const bool Y_SDK_IS_ENABLED = YandexSDK.Y_SDK_IS_ENABLED;
     
     public event Action<int> ScoreChanged;
     
     private int _currentScore;
+    private string _lang;
 
     public PlayerData()
     {
         _currentScore = 0;
+        _lang = EN_LANG;
     }
 
     public void ChangeScore(int n)
@@ -28,9 +35,9 @@ public class PlayerData
         {
             PlayerPrefs.SetInt("Score", _currentScore);
             Save();
-            #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR && Y_SDK_IS_ENABLED
             UpdateLeaderboardScore(_currentScore);
-            #endif
+#endif
         }     
     }
 
@@ -51,4 +58,13 @@ public class PlayerData
         PlayerPrefs.DeleteAll();
     }
 
+    public string GetLang()
+    {
+        return _lang;
+    }
+
+    public void ChangeLang(string lang)
+    {
+        _lang = lang;
+    }
 }

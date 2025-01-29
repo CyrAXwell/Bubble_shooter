@@ -522,10 +522,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c535fcd34461d44a0d85f74cb2f7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 178375980}
-  speed: 1
-  xDirection: 1
-  yDirection: 0
+  _image: {fileID: 178375980}
+  _speed: 0.2
+  _xDirection: 0.5
+  _yDirection: 0.1
 --- !u!1 &342039294
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,12 +702,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359591208}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.12648511, y: 4.068204, z: -41.692715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1190159631}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &372225996
 GameObject:
@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e959b091596e114fadcbd1769a97960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 600
+  _speed: 600
 --- !u!1 &396262725
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,9 +888,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e4c1e239c656c43b346f30994aa5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreDisplay: {fileID: 160244079}
-  highscoreDisplay: {fileID: 47736187}
-  countDuration: 0.5
+  _scoreDisplay: {fileID: 160244079}
+  _highscoreDisplay: {fileID: 47736187}
+  _countDuration: 0.5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,12 +1021,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.12648511, y: 4.068204, z: -51.692715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1190159631}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557654273
 GameObject:
@@ -1188,7 +1188,7 @@ GameObject:
   - component: {fileID: 638621039}
   - component: {fileID: 638621040}
   m_Layer: 5
-  m_Name: Line Renderer (1)
+  m_Name: Line Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1370,8 +1370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9f4a4a4dcca3241aeb092ede1a721f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  losePanel: {fileID: 1789507581}
-  yandexSDK: {fileID: 778033428}
+  _losePanel: {fileID: 1789507581}
 --- !u!1 &685762205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,8 +1534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fc5b07e3c2c524bb309a9124c83936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreView: {fileID: 396262729}
-  loseText: {fileID: 685762207}
+  _scoreView: {fileID: 396262729}
+  _loseText: {fileID: 685762207}
 --- !u!4 &778033429
 Transform:
   m_ObjectHideFlags: 0
@@ -1563,8 +1562,8 @@ GameObject:
   - component: {fileID: 840145089}
   - component: {fileID: 840145091}
   - component: {fileID: 840145090}
-  - component: {fileID: 840145092}
   - component: {fileID: 840145093}
+  - component: {fileID: 840145092}
   m_Layer: 5
   m_Name: Stock
   m_TagString: Untagged
@@ -1643,10 +1642,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee90cfdeeefe59f42bfe002f1c60dfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateIcon: {fileID: 1022511249}
-  roateSpeed: 45
-  stockBubble: {fileID: 2124522329}
-  bubbleShooter: {fileID: 1298313519}
+  _rotateIcon: {fileID: 1022511249}
+  _roateSpeed: 45
+  _stockBubble: {fileID: 2124522329}
+  _bubbleShooter: {fileID: 1298313519}
 --- !u!114 &840145093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,7 +1923,7 @@ GameObject:
   - component: {fileID: 954136238}
   - component: {fileID: 954136242}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Line Rendered Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2054,9 +2053,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c0428874ac4bb48bba18faf1ce00bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreView: {fileID: 396262729}
-  gameField: {fileID: 1644861350}
-  bubbleSpawner: {fileID: 1298313520}
+  _scoreView: {fileID: 396262729}
+  _gameField: {fileID: 1644861350}
+  _bubbleSpawner: {fileID: 1298313520}
+  _yandexSDK: {fileID: 778033428}
 --- !u!4 &1006368242
 Transform:
   m_ObjectHideFlags: 0
@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e959b091596e114fadcbd1769a97960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 600
+  _speed: 600
 --- !u!114 &1099825824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2236,6 +2236,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099825821}
   m_CullTransparentMesh: 1
+--- !u!1 &1190159630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190159631}
+  m_Layer: 0
+  m_Name: Game Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1190159631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190159630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12648511, y: -4.068204, z: 41.692715}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 519420032}
+  - {fileID: 359591211}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1298313515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,11 +2364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e68847138b63041ae080f5111683b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleSpawner: {fileID: 1298313520}
-  trajectoryLine: {fileID: 1298313522}
-  collPoint: {fileID: 4029930328203469658, guid: 10814645215648e4eab90714205c14c1, type: 3}
-  rayPoint: {fileID: 408649091430928186, guid: 0cd8288a07d83bc45ac719f201a053e6, type: 3}
-  gameField: {fileID: 1644861350}
+  _bubbleSpawner: {fileID: 1298313520}
+  _trajectoryLine: {fileID: 1298313522}
+  _gameField: {fileID: 1644861350}
 --- !u!114 &1298313520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2348,10 +2379,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a38b3e79d2299448d546efb697fc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleShooter: {fileID: 1298313519}
-  bubbleStock: {fileID: 840145092}
-  spawnPoint: {fileID: 372225997}
-  bubblePrefab: {fileID: 5074476132029547036, guid: 70f4c4e69b5dcfd48bf610b611c9e3d1, type: 3}
+  _bubbleShooter: {fileID: 1298313519}
+  _bubbleStock: {fileID: 840145092}
+  _spawnPoint: {fileID: 372225997}
+  _bubblePrefab: {fileID: 5074476132029547036, guid: 70f4c4e69b5dcfd48bf610b611c9e3d1, type: 3}
 --- !u!114 &1298313521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2462,8 +2493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a052187f890664bb74a6f58d342769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trajectoryLine: {fileID: 638621040}
-  spawnpoint: {fileID: 372225997}
+  _trajectoryLine: {fileID: 638621040}
+  _spawnpoint: {fileID: 372225997}
 --- !u!1 &1416940332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,21 +2732,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8e796707fcb254aa5790a41da69617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
-  hieght: 5
-  maxHieght: 13
-  ShootAmountToShiftDown: 5
-  cellPrefab: {fileID: 6063669865338826502, guid: a67c7169a1f74b34aa29fafe118f8a47, type: 3}
-  bubblePrefab: {fileID: 3378101048832992625, guid: ddbedd9916338de42b76d6c9753473a5, type: 3}
-  leftWall: {fileID: 1416940333}
-  rightWall: {fileID: 1659696441}
-  topWall: {fileID: 557654274}
-  spawner: {fileID: 1298313520}
-  background: {fileID: 2140781394}
-  spawnerPanel: {fileID: 1897362123}
-  borderLine: {fileID: 178375979}
-  scoreDisplay: {fileID: 396262726}
-  uIManager: {fileID: 680480963}
+  _width: 12
+  _hieght: 5
+  _maxHieght: 13
+  _shootAmountToShiftDown: 5
+  _cellPrefab: {fileID: 6063669865338826502, guid: a67c7169a1f74b34aa29fafe118f8a47, type: 3}
+  _bubblePrefab: {fileID: 3378101048832992625, guid: ddbedd9916338de42b76d6c9753473a5, type: 3}
+  _leftWall: {fileID: 1416940333}
+  _rightWall: {fileID: 1659696441}
+  _topWall: {fileID: 557654274}
+  _spawner: {fileID: 1298313520}
+  _background: {fileID: 2140781394}
+  _spawnerPanel: {fileID: 1897362123}
+  _borderLine: {fileID: 178375979}
+  _scoreDisplay: {fileID: 396262726}
+  _uIManager: {fileID: 680480963}
 --- !u!1 &1659696440
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,8 +3193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13fa8540f56563d4dbb28515c585c0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 8779f5c10fb35854790173190f25a903, type: 2}
-  sFXSource: {fileID: 1720359248}
+  _audioMixer: {fileID: 24100000, guid: 8779f5c10fb35854790173190f25a903, type: 2}
+  _sFXSource: {fileID: 1720359248}
   PopSound: {fileID: 8300000, guid: 746e4df5948f01a468c9c13c9a34341e, type: 3}
   SwapSound: {fileID: 8300000, guid: c64bc21889a4b244080abc517c459eba, type: 3}
   ShootSound: {fileID: 8300000, guid: 20632517e6a6ece49bde3e599dc31e57, type: 3}
@@ -3324,10 +3355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c535fcd34461d44a0d85f74cb2f7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 1821054314}
-  speed: 0.2
-  xDirection: 0.5
-  yDirection: 0.1
+  _image: {fileID: 1821054314}
+  _speed: 0.2
+  _xDirection: 0.5
+  _yDirection: 0.1
 --- !u!114 &1821054314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3452,7 +3483,7 @@ GameObject:
   - component: {fileID: 2096971932}
   - component: {fileID: 2096971936}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3754,12 +3785,11 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
+  - {fileID: 1190159631}
   - {fileID: 1006368242}
   - {fileID: 954136241}
   - {fileID: 2096971935}
   - {fileID: 342039299}
-  - {fileID: 359591211}
   - {fileID: 1777584282}
   - {fileID: 680480962}
   - {fileID: 778033429}

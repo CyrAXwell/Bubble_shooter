@@ -3,8 +3,10 @@ using UnityEngine.UI;
 
 public class Bubble : MonoBehaviour
 {
-    [SerializeField] private BubbleSprite bubbleSprite;
-    [SerializeField] private Image image;
+    public const string BUBBLE_GAME_OBJECT_TAG = "Bubble";
+
+    [SerializeField] private BubbleSprite _bubbleSprite;
+    [SerializeField] private Image _image;
 
     private BubbleType _type;
     private Cell _cell;
@@ -19,22 +21,22 @@ public class Bubble : MonoBehaviour
         switch(_type)
         {
             case BubbleType.Red :
-                image.sprite = bubbleSprite.RedBubble;
+                _image.sprite = _bubbleSprite.RedBubble;
                 break;
             case BubbleType.Blue :
-                image.sprite = bubbleSprite.BlueBubble;
+                _image.sprite = _bubbleSprite.BlueBubble;
                 break;
             case BubbleType.Green :
-                image.sprite = bubbleSprite.GreenBubble;
+                _image.sprite = _bubbleSprite.GreenBubble;
                 break;
             case BubbleType.Yellow :
-                image.sprite = bubbleSprite.YelowBubble;
+                _image.sprite = _bubbleSprite.YelowBubble;
                 break;
             case BubbleType.Purple :
-                image.sprite = bubbleSprite.PurpleBubble;
+                _image.sprite = _bubbleSprite.PurpleBubble;
                 break;
             default :
-                image.sprite = bubbleSprite.RedBubble;
+                _image.sprite = _bubbleSprite.RedBubble;
                 break;
         }
     }
